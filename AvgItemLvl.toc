@@ -1,0 +1,6 @@
+## Interface: 100005
+## Title: AvgItemLvl
+## Author: ThundurTwonk
+## Version: v1.0.0
+
+main.lua

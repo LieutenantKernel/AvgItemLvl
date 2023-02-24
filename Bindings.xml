@@ -1,0 +1,5 @@
+<Bindings>
+    <Binding name="INSPECT_TARGET" header="AVG_ITEM_LVL" category="ADDONS">
+        InspectUnit("target")
+    </Binding>
+</Bindings>
