@@ -14,7 +14,7 @@ jobs:
         id: version
         run: |
           # Extract the version number from the TOC file
-          version=$(grep -oP 'Version: \K.*' addon.toc | sed 's/^v//')
+          version=$(grep -oP 'Version: \K.*' AvgItemLvl.toc | sed 's/^v//')
 
           # Store the version number in an output variable
           echo "::set-output name=version::${version}"
