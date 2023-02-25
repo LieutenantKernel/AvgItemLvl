@@ -55,8 +55,11 @@ jobs:
         run: zip -r AvgItemLvl-${{ steps.version.outputs.version }}.zip .
       
       - name: Upload Addon to CurseForge
-        uses: Lcfvs/upload-to-curseforge-action@v1.0.0
+        uses: itsmeow/curseforge-upload@v3
         with:
-          api-token: ${{ secrets.CURSEFORGE_API_TOKEN }}
-          addon-id: ${{ secrets.CURSEFORGE_ADDON_ID }}
-          addon-file: AvgItemLvl-${{ steps.version.outputs.version }}.zip
+          token: ${{ secrets.CURSEFORGE_API_TOKEN }}
+          project_id: ${{ secrets.CURSEFORGE_ADDON_ID }}
+          game_endpoint: "wow"
+          release_type: release
+          changelog: "${{ steps.version.outputs.version }} update"
+          file_path: AvgItemLvl-${{ steps.version.outputs.version }}.zip
