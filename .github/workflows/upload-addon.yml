@@ -1,0 +1,44 @@
+name: Upload Addon to CurseForge
+on:
+  push:
+    branches:
+      - main
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Determine version number
+        id: version
+        run: echo "::set-output name=version::$(grep -oP 'Version: \K.*' addon.toc)"
+
+      # - name: Increment minor version number
+      #   id: minor-version
+      #   run: echo "::set-output name=minor-version::$(echo ${{ steps.version.outputs.version }} | awk -F '.' '{print $1"."$2"."$3+1}')"
+
+      # - name: Create new version tag
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ steps.minor-version.outputs.minor-version }}
+      #     name: ${{ steps.minor-version.outputs.minor-version }}
+      #     draft: false
+      #     prerelease: false
+
+      # - name: Update addon TOC file
+      #   run: sed -i "s/^Version:.*\$/Version: ${{ steps.minor-version.outputs.minor-version }}/" addon.toc
+
+      # - name: Zip repository contents
+      #   run: zip -r addon-${{ steps.minor-version.outputs.minor-version }}.zip .
+      
+      # - name: Upload Addon to CurseForge
+      #   uses: Lcfvs/upload-to-curseforge-action@v1.0.0
+      #   with:
+      #     api-token: ${{ secrets.CURSEFORGE_API_TOKEN }}
+      #     addon-id: <ADDON_PROJECT_ID>
+      #     addon-file: addon-${{ steps.minor-version.outputs.minor-version }}.zip
+
+      # - name: Delete addon zip file
+      #   run: rm addon-${{ steps.minor-version.outputs.minor-version }}.zip
