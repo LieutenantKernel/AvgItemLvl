@@ -11,13 +11,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Determine version number
+        id: latest_version
         run: |
           # Extract the version number from the TOC file
-          updated_version=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)
+          latest_version=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)
 
           # Store the version number in an output variable
-          echo "new_version=$updated_version" >> $GITHUB_ENV
-          echo ${{ env.new_version }}
+          echo "v=$latest_version" >> $GITHUB_OUTPUT
+          echo ${{ steps.latest_version.outputs.v }}
           
       - name: Create version tag
         run: |
