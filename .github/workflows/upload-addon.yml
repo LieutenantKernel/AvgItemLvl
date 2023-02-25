@@ -11,32 +11,26 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Determine version number
-        id: version
+        id: latest_version
         run: |
           # Extract the version number from the TOC file
-          version=$(grep -oP 'Version: \K.*' AvgItemLvl.toc | sed 's/^v//')
+          echo "::set-output name=v::$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)"
 
-          # Store the version number in an output variable
-          echo "::set-output name=version::${version}"
-          
+        env:
+          v: ${{ steps.latest_version.outputs.v }}
       - name: Create version tag
         run: |
-          # Retrieve the version number from the output variable
-          version=${{ steps.determine_version_number.outputs.version }}
-          
           # Create a new tag for the current commit 
-          git tag $version
-          
-          # Push the new tag to the repository
-          git push origin $version
+          git tag ${{ steps.latest_version.outputs.v }}
 
+          # Push the new tag to the repository
+          git push origin ${{ steps.latest_version.outputs.v }}
+        env:
+          v: ${{ steps.latest_version.outputs.v }}
       - name: Zip repository contents
         run: |
-          # Retrieve the version number from the output variable
-          version=${{ steps.determine_version_number.outputs.version }}
-          
-          zip -r AvgItemLvl-$version.zip .
-      
+          zip -r AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip .
+
       - name: Upload Addon to CurseForge
         uses: itsmeow/curseforge-upload@v3
         with:
@@ -44,5 +38,5 @@ jobs:
           project_id: ${{ secrets.CURSEFORGE_ADDON_ID }}
           game_endpoint: "wow"
           release_type: release
-          changelog: "${{ steps.determine_version_number.outputs.version }} update"
-          file_path: AvgItemLvl-${{ steps.determine_version_number.outputs.version }}.zip
+          changelog: "${{ steps.latest_version.outputs.v }} update"
+          file_path: AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip
