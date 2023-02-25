@@ -29,7 +29,7 @@ jobs:
           v: ${{ steps.latest_version.outputs.v }}
       - name: Zip repository contents
         run: |
-          zip -r AvgItemLvl-"$v".zip .
+          zip -r AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip .
       
       - name: Upload Addon to CurseForge
         uses: itsmeow/curseforge-upload@v3
@@ -38,5 +38,5 @@ jobs:
           project_id: ${{ secrets.CURSEFORGE_ADDON_ID }}
           game_endpoint: "wow"
           release_type: release
-          changelog: "$v update"
-          file_path: AvgItemLvl-"$v".zip
+          changelog: "${{ steps.latest_version.outputs.v }} update"
+          file_path: AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip
