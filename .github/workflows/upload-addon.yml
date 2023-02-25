@@ -9,12 +9,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        #
+
       - name: Determine version number
         id: latest_version
         run: |
           # Extract the version number from the TOC file
           echo "::set-output name=v::$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)"
+          
       - name: Create version tag
         shell: bash
         env:
@@ -30,8 +31,10 @@ jobs:
           else
             echo "Latest tag ($latest_tag) is already up-to-date with version $version"
           fi
+          
       - name: Zip repository contents
         run: |
+          rm -rf .github
           zip -r AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip .
       
       - name: Upload Addon to CurseForge
