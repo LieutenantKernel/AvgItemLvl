@@ -1,8 +1,8 @@
 name: Upload Addon to CurseForge
 on:
   push:
-    branches:
-      - main
+    #branches:
+    #  - main
 jobs:
   upload:
     runs-on: ubuntu-latest
