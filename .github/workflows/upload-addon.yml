@@ -7,7 +7,7 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     outputs:
-      verion: ${{ steps..determine_version_number.outputs.version }}
+      verion: ${{ steps.determine_version_number.outputs.version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
