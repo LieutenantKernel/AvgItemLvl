@@ -22,7 +22,7 @@ jobs:
         run: |
           # Create a new tag for the current commit 
           git tag ${{ steps.latest_version.outputs.v }}
-
+          
           # Push the new tag to the repository
           git push origin ${{ steps.latest_version.outputs.v }}
         env:
@@ -30,7 +30,7 @@ jobs:
       - name: Zip repository contents
         run: |
           zip -r AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip .
-
+      
       - name: Upload Addon to CurseForge
         uses: itsmeow/curseforge-upload@v3
         with:
