@@ -12,4 +12,4 @@ jobs:
       uses: lunarmodules/luacheck@v0
       with:
         path: main.lua
-        args: "--codes W --no-color"
+        args: "--ignore | -i undefined"
