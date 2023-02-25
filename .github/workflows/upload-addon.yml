@@ -18,7 +18,7 @@ jobs:
 
           # Store the version number in an output variable
           echo "version=$updated_version" >> $GITHUB_OUTPUT
-          echo ${{ steps.determine_version_number.outputs.version }}
+          echo "${{ steps.determine_version_number.outputs.version }}"
           
       - name: Create version tag
         run: |
