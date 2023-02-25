@@ -6,14 +6,11 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
-    outputs:
-      verion: ${{ steps.determine_version_number.outputs.version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Determine version number
-        id: version
         run: |
           # Extract the version number from the TOC file
           updated_version=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)
