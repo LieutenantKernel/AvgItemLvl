@@ -38,5 +38,10 @@ jobs:
           project_id: ${{ secrets.CURSEFORGE_ADDON_ID }}
           game_endpoint: "wow"
           release_type: release
+<<<<<<< HEAD
           changelog: "${{ steps.latest_version.outputs.v }} update"
           file_path: AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip
+=======
+          changelog: "${{ steps.determine_version_number.outputs.version }} update"
+          file_path: AvgItemLvl-${{ steps.determine_version_number.outputs.version }}.zip
+>>>>>>> 17fe4895f876607a627ef6a47a42ce7730fdd6b7
