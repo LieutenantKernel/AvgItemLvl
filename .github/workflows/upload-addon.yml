@@ -6,10 +6,6 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
-    env:
-      CI: true
-      TERM: xterm-256color
-      ACTIONS_STEP_DEBUG: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,6 +16,7 @@ jobs:
           # Extract the version number from the TOC file
           echo "::set-output name=v::$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)"
       - name: Create version tag
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
