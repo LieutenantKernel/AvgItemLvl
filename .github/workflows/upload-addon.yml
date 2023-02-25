@@ -16,14 +16,11 @@ jobs:
           updated_version=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)
 
           # Store the version number in an output variable
-          echo "version=$updated_version" >> $GITHUB_OUTPUT
-          echo "${{ steps.determine_version_number.outputs.version }}"
+          echo "version=$updated_version" >> $GITHUB_ENV
+          echo $version
           
       - name: Create version tag
         run: |
-          # Retrieve the version number from the output variable
-          version=${{ steps.determine_version_number.outputs.version }}
-          
           # Create a new tag for the current commit 
           git tag $version
           
@@ -32,9 +29,6 @@ jobs:
 
       - name: Zip repository contents
         run: |
-          # Retrieve the version number from the output variable
-          version=${{ steps.determine_version_number.outputs.version }}
-          
           zip -r AvgItemLvl-$version.zip .
       
       - name: Upload Addon to CurseForge
@@ -44,5 +38,5 @@ jobs:
           project_id: ${{ secrets.CURSEFORGE_ADDON_ID }}
           game_endpoint: "wow"
           release_type: release
-          changelog: "${{ steps.determine_version_number.outputs.version }} update"
-          file_path: AvgItemLvl-${{ steps.determine_version_number.outputs.version }}.zip
+          changelog: "$version update"
+          file_path: AvgItemLvl-$version.zip
