@@ -19,11 +19,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
-          # Create a new tag for the current commit 
-          git tag ${{ steps.latest_version.outputs.v }}
-          
-          # Push the new tag to the repository
-          git push origin ${{ steps.latest_version.outputs.v }}
+          latest_tag=$(git describe --tags --abbrev=0)
+          if [[ "$latest_tag" < ${{ steps.latest_version.outputs.v }} ]]; then
+            git tag ${{ steps.latest_version.outputs.v }}
+            git push origin ${{ steps.latest_version.outputs.v }}
+          else
+            echo "Latest tag ($latest_tag) is already up-to-date with version $version"
+          fi
       - name: Zip repository contents
         run: |
           zip -r AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip .
