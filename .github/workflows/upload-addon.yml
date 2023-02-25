@@ -20,7 +20,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
-          echo $(git describe --tags --abbrev=0)
+          git config user.name "GitHub Action"
+          git config user.email "github-action@users.noreply.github.com"
           latest_tag=$(git describe --tags --abbrev=0)
           if [[ "$latest_tag" < ${{ steps.latest_version.outputs.v }} ]]; then
             git tag ${{ steps.latest_version.outputs.v }}
