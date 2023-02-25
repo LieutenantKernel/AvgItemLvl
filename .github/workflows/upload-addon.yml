@@ -12,9 +12,21 @@ jobs:
       - name: Determine version number
         id: version
         run: |
-          echo "::set-output name=minor-version::$(grep -oP 'Version: \K.*' AvgItemLvl.toc)"
-          echo "::set-output name=version::$(grep -oP 'Version: \K.*' AvgItemLvl.toc | awk -F '.' '{print $1"."$2"."$3+1}')"
-          echo ${{ steps.version.outputs.version }}
+          # Extract the version number from the TOC file
+          version=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)
+    
+          # Extract the minor version number
+          minor_version=$(echo "$version" | cut -d "." -f 2)
+          
+          # Increment the minor version number
+          next_minor_version=$((minor_version + 1))
+          
+          # Print the new version number
+          echo "New version: v$(echo "$version" | cut -d "." -f 1).$next_minor_version.$(echo "$version" | cut -d "." -f 3)"
+          echo "New version number: $new_version"
+          
+          # Set the output for the version number
+          echo "::set-output name=version::v$(echo "$version" | cut -d "." -f 1).$next_minor_version.$(echo "$version" | cut -d "." -f 3)"
 
       # - name: Increment minor version number
       #   id: minor-version
