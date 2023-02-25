@@ -40,7 +40,7 @@ jobs:
           # Push the new tag to the repository
           #git push origin ${{ steps.version.outputs.version }}
 
-      - name: Update addon TOC file
+      - name: Update addon TOC file and push version changes
         run: |
           sed -i "s/^Version:.*\$/Version: ${{ steps.version.outputs.version }}/" AvgItemLvl.toc
           
