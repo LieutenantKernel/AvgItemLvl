@@ -12,7 +12,7 @@ jobs:
       - name: Determine version number
         id: version
         run: |
-          echo "::set-output name=version::$(grep -oP 'Version: \K.*' addon.toc)"
+          echo "::set-output name=version::$(grep -oP 'Version: \K.*' AvgItemLvl.toc)"
 
       # - name: Increment minor version number
       #   id: minor-version
@@ -29,17 +29,17 @@ jobs:
       #     prerelease: false
 
       # - name: Update addon TOC file
-      #   run: sed -i "s/^Version:.*\$/Version: ${{ steps.minor-version.outputs.minor-version }}/" addon.toc
+      #   run: sed -i "s/^Version:.*\$/Version: ${{ steps.minor-version.outputs.minor-version }}/" AvgItemLvl.toc
 
       # - name: Zip repository contents
-      #   run: zip -r addon-${{ steps.minor-version.outputs.minor-version }}.zip .
+      #   run: zip -r AvgItemLvl-${{ steps.minor-version.outputs.minor-version }}.zip .
       
       # - name: Upload Addon to CurseForge
       #   uses: Lcfvs/upload-to-curseforge-action@v1.0.0
       #   with:
       #     api-token: ${{ secrets.CURSEFORGE_API_TOKEN }}
-      #     addon-id: <ADDON_PROJECT_ID>
-      #     addon-file: addon-${{ steps.minor-version.outputs.minor-version }}.zip
+      #     addon-id: ${{ secrets.CURSEFORGE_ADDON_ID }}
+      #     addon-file: AvgItemLvl-${{ steps.minor-version.outputs.minor-version }}.zip
 
       # - name: Delete addon zip file
-      #   run: rm addon-${{ steps.minor-version.outputs.minor-version }}.zip
+      #   run: rm AvgItemLvl-${{ steps.minor-version.outputs.minor-version }}.zip
