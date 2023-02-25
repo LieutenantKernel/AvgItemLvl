@@ -17,19 +17,19 @@ jobs:
 
           # Store the version number in an output variable
           echo "version=$updated_version" >> $GITHUB_ENV
-          echo $version
+          echo ${{ env.version }}
           
       - name: Create version tag
         run: |
           # Create a new tag for the current commit 
-          git tag $version
+          git tag ${{ env.version }}
           
           # Push the new tag to the repository
-          git push origin $version
+          git push origin ${{ env.version }}
 
       - name: Zip repository contents
         run: |
-          zip -r AvgItemLvl-$version.zip .
+          zip -r AvgItemLvl-${{ env.version }}.zip .
       
       - name: Upload Addon to CurseForge
         uses: itsmeow/curseforge-upload@v3
@@ -38,5 +38,5 @@ jobs:
           project_id: ${{ secrets.CURSEFORGE_ADDON_ID }}
           game_endpoint: "wow"
           release_type: release
-          changelog: "$version update"
-          file_path: AvgItemLvl-$version.zip
+          changelog: "${{ env.version }} update"
+          file_path: AvgItemLvl-${{ env.version }}.zip
