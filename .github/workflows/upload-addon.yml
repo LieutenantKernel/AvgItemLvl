@@ -29,11 +29,12 @@ jobs:
             git tag ${{ steps.latest_version.outputs.v }}
             git push origin ${{ steps.latest_version.outputs.v }}
           else
-            echo "Latest tag ($latest_tag) is already up-to-date with version $version"
+            echo "Latest tag ($latest_tag) is already up-to-date with version ${{ steps.latest_version.outputs.v }}"
           fi
           
-      - name: Zip repository contents
+      - name: Zip addon contents
         run: |
+          rm -rf .git
           rm -rf .github
           zip -r AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip .
       
