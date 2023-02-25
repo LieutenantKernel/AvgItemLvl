@@ -30,7 +30,7 @@ jobs:
       - name: Create version tag
         run: |
           # Get the new version number
-          new_version=$(echo "::set-output name=version::v$(echo "$version" | cut -d "." -f 1).$next_minor_version.$(echo "$version" | cut -d "." -f 3)")
+          new_version=$(echo "::set-output name=version::$(echo "$version" | cut -d "." -f 1).$next_minor_version.$(echo "$version" | cut -d "." -f 3)")
           
           # Create a new tag for the current commit
           git tag "$new_version"
