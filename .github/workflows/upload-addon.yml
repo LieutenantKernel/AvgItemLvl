@@ -14,10 +14,7 @@ jobs:
         id: latest_version
         run: |
           # Extract the version number from the TOC file
-          latest_version=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)
-          echo $latest_version
-          # Store the version number in an output variable
-          echo "v=$latest_version" >> $GITHUB_ENV
+          echo "v=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)" >> $GITHUB_ENV
           echo $v
           
       - name: Create version tag
