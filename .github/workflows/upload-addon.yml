@@ -15,18 +15,15 @@ jobs:
         run: |
           # Extract the version number from the TOC file
           echo "::set-output name=v::$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)"
-
-        env:
-          v: ${{ steps.latest_version.outputs.v }}
       - name: Create version tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
           # Create a new tag for the current commit 
           git tag ${{ steps.latest_version.outputs.v }}
           
           # Push the new tag to the repository
           git push origin ${{ steps.latest_version.outputs.v }}
-        env:
-          v: ${{ steps.latest_version.outputs.v }}
       - name: Zip repository contents
         run: |
           zip -r AvgItemLvl-${{ steps.latest_version.outputs.v }}.zip .
