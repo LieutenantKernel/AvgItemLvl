@@ -18,6 +18,7 @@ jobs:
 
           # Store the version number in an output variable
           echo "::set-output name=version::${version}"
+          echo ${{ steps.determine_version_number.outputs.version }}
           
       - name: Create version tag
         run: |
