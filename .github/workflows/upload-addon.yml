@@ -26,10 +26,9 @@ jobs:
           
           # Create a new tag for the current commit 
           git tag $version
-          git tag -d $version
           
           # Push the new tag to the repository
-          #git push origin $version
+          git push origin $version
 
       - name: Zip repository contents
         run: |
