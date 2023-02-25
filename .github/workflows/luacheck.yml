@@ -11,5 +11,4 @@ jobs:
     - name: Run Luacheck
       uses: lunarmodules/luacheck@v0
       with:
-        path: main.lua
-        args: "--ignore undefined"
+        args: "main.lua --ignore undefined"
