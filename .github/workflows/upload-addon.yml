@@ -17,7 +17,7 @@ jobs:
           updated_version=$(grep -oP 'Version: \Kv\d+\.\d+\.\d+' AvgItemLvl.toc)
 
           # Store the version number in an output variable
-          echo "version=$updated_version" >> $GITHUB_OUTPUT
+          echo "version=$updated_version" >> $env:GITHUB_OUTPUT
           echo "${{ steps.determine_version_number.outputs.version }}"
           
       - name: Create version tag
