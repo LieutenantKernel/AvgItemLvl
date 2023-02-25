@@ -22,25 +22,24 @@ jobs:
           next_minor_version=$((minor_version + 1))
           
           # Print the new version number
-          echo "New version: v$(echo "$version" | cut -d "." -f 1).$next_minor_version.$(echo "$version" | cut -d "." -f 3)"
-          echo "New version number: $new_version"
+          echo "New version: $(echo "$version" | cut -d "." -f 1).$next_minor_version.$(echo "$version" | cut -d "." -f 3)"
           
           # Set the output for the version number
           echo "::set-output name=version::v$(echo "$version" | cut -d "." -f 1).$next_minor_version.$(echo "$version" | cut -d "." -f 3)"
+          
+      - name: Create version tag
+        run: |
+          # Get the new version number
+          new_version=${{ steps.version.outputs.version }}
+          
+          # Create a new tag for the current commit
+          git tag "$new_version"
+          git tag -d "$new_version"
+          
+          # Push the new tag to the repository
+          #git push origin "$new_version"
 
-      # - name: Increment minor version number
-      #   id: minor-version
-      #   run: echo "::set-output name=minor-version::$(echo ${{ steps.version.outputs.version }} | awk -F '.' '{print $1"."$2"."$3+1}')"
 
-      # - name: Create new version tag
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ steps.minor-version.outputs.minor-version }}
-      #     name: ${{ steps.minor-version.outputs.minor-version }}
-      #     draft: false
-      #     prerelease: false
 
       # - name: Update addon TOC file
       #   run: sed -i "s/^Version:.*\$/Version: ${{ steps.minor-version.outputs.minor-version }}/" AvgItemLvl.toc
