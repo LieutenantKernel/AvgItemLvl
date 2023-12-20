@@ -1,4 +1,4 @@
-## Interface: 100005
+## Interface: 100200
 ## Title: AvgItemLvl
 ## Author: ThundurTwonk
 ## Version: v1.0.1
