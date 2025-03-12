@@ -1,6 +1,6 @@
-## Interface: 100200
+## Interface: 110005
 ## Title: AvgItemLvl
 ## Author: ThundurTwonk
-## Version: v1.0.2
+## Version: v1.0.3
 
 main.lua
